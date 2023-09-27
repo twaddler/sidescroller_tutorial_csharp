@@ -1,0 +1,203 @@
+[gd_scene load_steps=19 format=3 uid="uid://0oxdsl6rwieo"]
+
+[ext_resource type="Script" path="res://Characters/Enemies/Snail/Snail.cs" id="1_0aate"]
+[ext_resource type="Texture2D" uid="uid://n3e1nonpha0u" path="res://art/Mob/Snail/walk-Sheet.png" id="1_j4v3w"]
+[ext_resource type="Script" path="res://Characters/Enemies/Damageable.cs" id="2_d7iij"]
+[ext_resource type="Texture2D" uid="uid://chjv0vgq85f4k" path="res://art/Mob/Snail/Dead-Sheet.png" id="3_8olfb"]
+[ext_resource type="Script" path="res://Characters/CharacterStateMachine.cs" id="4_aq8kw"]
+[ext_resource type="Script" path="res://Characters/Enemies/Snail/WalkState.cs" id="5_xrqwg"]
+[ext_resource type="Script" path="res://Characters/Enemies/Snail/DeadState.cs" id="6_aqei5"]
+[ext_resource type="Script" path="res://Characters/Enemies/HitState.cs" id="7_7w03u"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_wk3rf"]
+size = Vector2(24, 20)
+
+[sub_resource type="Animation" id="Animation_dseti"]
+resource_name = "idle"
+length = 0.8
+loop_mode = 1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Sprite:texture")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [ExtResource("1_j4v3w")]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("Sprite:hframes")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [8]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("Sprite:frame")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0, 0.1, 0.2, 0.3, 0.4, 0.5, 0.6, 0.7),
+"transitions": PackedFloat32Array(1, 1, 1, 1, 1, 1, 1, 1),
+"update": 1,
+"values": [0, 1, 2, 3, 4, 5, 6, 7]
+}
+
+[sub_resource type="Animation" id="Animation_172hk"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Sprite:texture")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [ExtResource("1_j4v3w")]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("Sprite:hframes")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [8]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("Sprite:frame")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [0]
+}
+
+[sub_resource type="Animation" id="Animation_ttpx5"]
+resource_name = "dead"
+length = 0.8
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Sprite:texture")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [ExtResource("3_8olfb")]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("Sprite:hframes")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [8]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("Sprite:frame")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0, 0.1, 0.2, 0.3, 0.4, 0.5, 0.6, 0.7),
+"transitions": PackedFloat32Array(1, 1, 1, 1, 1, 1, 1, 1),
+"update": 1,
+"values": [0, 1, 2, 3, 4, 5, 6, 7]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_xu5xo"]
+_data = {
+"RESET": SubResource("Animation_172hk"),
+"dead": SubResource("Animation_ttpx5"),
+"idle": SubResource("Animation_dseti")
+}
+
+[sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_vvi2o"]
+animation = &"dead"
+
+[sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_vk8we"]
+animation = &"idle"
+
+[sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_spdvt"]
+advance_mode = 2
+
+[sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_7f2tl"]
+
+[sub_resource type="AnimationNodeStateMachine" id="AnimationNodeStateMachine_0ydh3"]
+states/dead/node = SubResource("AnimationNodeAnimation_vvi2o")
+states/dead/position = Vector2(604, 100)
+states/idle/node = SubResource("AnimationNodeAnimation_vk8we")
+states/idle/position = Vector2(400, 100)
+transitions = ["Start", "idle", SubResource("AnimationNodeStateMachineTransition_spdvt"), "idle", "dead", SubResource("AnimationNodeStateMachineTransition_7f2tl")]
+graph_offset = Vector2(-165, -131)
+
+[node name="Snail" type="CharacterBody2D"]
+collision_layer = 4
+script = ExtResource("1_0aate")
+
+[node name="Sprite" type="Sprite2D" parent="."]
+texture = ExtResource("1_j4v3w")
+hframes = 8
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+position = Vector2(0, 6)
+shape = SubResource("RectangleShape2D_wk3rf")
+
+[node name="CharacterStateMachine" type="Node" parent="."]
+script = ExtResource("4_aq8kw")
+initialStateName = "Walk"
+
+[node name="Walk" type="Node" parent="CharacterStateMachine"]
+script = ExtResource("5_xrqwg")
+
+[node name="Dead" type="Node" parent="CharacterStateMachine"]
+script = ExtResource("6_aqei5")
+CanMove = false
+
+[node name="Hit" type="Node" parent="CharacterStateMachine"]
+script = ExtResource("7_7w03u")
+CanMove = false
+
+[node name="Timer" type="Timer" parent="CharacterStateMachine/Hit"]
+wait_time = 0.2
+one_shot = true
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+libraries = {
+"": SubResource("AnimationLibrary_xu5xo")
+}
+
+[node name="AnimationTree" type="AnimationTree" parent="."]
+tree_root = SubResource("AnimationNodeStateMachine_0ydh3")
+anim_player = NodePath("../AnimationPlayer")
+
+[node name="Damageable" type="Node" parent="."]
+script = ExtResource("2_d7iij")
+_health = 20

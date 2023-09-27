@@ -7,51 +7,10 @@
 [ext_resource type="Script" path="res://Characters/CharacterStateMachine.cs" id="4_aq8kw"]
 [ext_resource type="Script" path="res://Characters/Enemies/Snail/WalkState.cs" id="5_xrqwg"]
 [ext_resource type="Script" path="res://Characters/Enemies/Snail/DeadState.cs" id="6_aqei5"]
-[ext_resource type="Script" path="res://Characters/Enemies/HitState.cs" id="7_7w03u"]
+[ext_resource type="Script" path="res://Characters/Enemies/Snail/HitState.cs" id="6_ncj78"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_wk3rf"]
 size = Vector2(24, 20)
-
-[sub_resource type="Animation" id="Animation_dseti"]
-resource_name = "idle"
-length = 0.8
-loop_mode = 1
-tracks/0/type = "value"
-tracks/0/imported = false
-tracks/0/enabled = true
-tracks/0/path = NodePath("Sprite:texture")
-tracks/0/interp = 1
-tracks/0/loop_wrap = true
-tracks/0/keys = {
-"times": PackedFloat32Array(0),
-"transitions": PackedFloat32Array(1),
-"update": 1,
-"values": [ExtResource("1_j4v3w")]
-}
-tracks/1/type = "value"
-tracks/1/imported = false
-tracks/1/enabled = true
-tracks/1/path = NodePath("Sprite:hframes")
-tracks/1/interp = 1
-tracks/1/loop_wrap = true
-tracks/1/keys = {
-"times": PackedFloat32Array(0),
-"transitions": PackedFloat32Array(1),
-"update": 1,
-"values": [8]
-}
-tracks/2/type = "value"
-tracks/2/imported = false
-tracks/2/enabled = true
-tracks/2/path = NodePath("Sprite:frame")
-tracks/2/interp = 1
-tracks/2/loop_wrap = true
-tracks/2/keys = {
-"times": PackedFloat32Array(0, 0.1, 0.2, 0.3, 0.4, 0.5, 0.6, 0.7),
-"transitions": PackedFloat32Array(1, 1, 1, 1, 1, 1, 1, 1),
-"update": 1,
-"values": [0, 1, 2, 3, 4, 5, 6, 7]
-}
 
 [sub_resource type="Animation" id="Animation_172hk"]
 length = 0.001
@@ -132,6 +91,47 @@ tracks/2/keys = {
 "values": [0, 1, 2, 3, 4, 5, 6, 7]
 }
 
+[sub_resource type="Animation" id="Animation_dseti"]
+resource_name = "idle"
+length = 0.8
+loop_mode = 1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Sprite:texture")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [ExtResource("1_j4v3w")]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("Sprite:hframes")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [8]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("Sprite:frame")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0, 0.1, 0.2, 0.3, 0.4, 0.5, 0.6, 0.7),
+"transitions": PackedFloat32Array(1, 1, 1, 1, 1, 1, 1, 1),
+"update": 1,
+"values": [0, 1, 2, 3, 4, 5, 6, 7]
+}
+
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_xu5xo"]
 _data = {
 "RESET": SubResource("Animation_172hk"),
@@ -172,7 +172,7 @@ shape = SubResource("RectangleShape2D_wk3rf")
 
 [node name="CharacterStateMachine" type="Node" parent="."]
 script = ExtResource("4_aq8kw")
-initialStateName = "Walk"
+_initialStateName = "Walk"
 
 [node name="Walk" type="Node" parent="CharacterStateMachine"]
 script = ExtResource("5_xrqwg")
@@ -182,7 +182,7 @@ script = ExtResource("6_aqei5")
 CanMove = false
 
 [node name="Hit" type="Node" parent="CharacterStateMachine"]
-script = ExtResource("7_7w03u")
+script = ExtResource("6_ncj78")
 CanMove = false
 
 [node name="Timer" type="Timer" parent="CharacterStateMachine/Hit"]

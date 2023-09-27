@@ -13,16 +13,16 @@ public partial class Damageable : Node
 			return _health;
 		}
 		set {
-			sigBus.EmitSignal(SignalBus.SignalName.OnHealthChanged, GetParent(), value - _health);
+			_sigBus.EmitSignal(SignalBus.SignalName.OnHealthChanged, GetParent(), value - _health);
 			_health = value;
 		}
 	}
 
-	private SignalBus sigBus;
+	private SignalBus _sigBus;
 
     public override void _Ready()
     {
-		sigBus = GetNode<SignalBus>("/root/SignalBus");
+		_sigBus = GetNode<SignalBus>("/root/SignalBus");
     }
 
     public void Hit(int damage, Vector2 direction) {

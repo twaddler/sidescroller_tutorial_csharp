@@ -4,7 +4,8 @@ using System;
 public partial class Sword : Area2D
 {
 	[Export]
-	private int Damage = 10;
+	private int _damage = 10;
+	
 	private Player _player;
 	private FacingCollisionShape2D _collisionShape2D;
 
@@ -34,13 +35,13 @@ public partial class Sword : Area2D
 				int direction = MathF.Sign(directionToDamageable.X);
 				
 				if (direction > 0) {
-					((Damageable)child).Hit(Damage, Vector2.Right);
+					((Damageable)child).Hit(_damage, Vector2.Right);
 				}
 				else if (direction < 0) {
-					((Damageable)child).Hit(Damage, Vector2.Left);
+					((Damageable)child).Hit(_damage, Vector2.Left);
 				}
 				else {
-					((Damageable)child).Hit(Damage, Vector2.Zero);
+					((Damageable)child).Hit(_damage, Vector2.Zero);
 				}
 			}
 		}

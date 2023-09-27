@@ -3,19 +3,19 @@ using System;
 
 public partial class LandingState : State
 {
-	[Export]
-	private string LandingAnimation = "jump_end";
+    [Export]
+    private string _landingAnimation = "jump_end";
 
-	private State GroundState;
+    private State _groundState;
 
     public override void _Ready()
     {
-		GroundState = GetParent().GetNode<State>("Ground");
+		  _groundState = GetParent().GetNode<State>("Ground");
     }
 
     public override void OnEnter()
     {
-		Playback.Travel(LandingAnimation);
+		  Playback.Travel(_landingAnimation);
     }
 
     public override void OnExit()
@@ -24,8 +24,8 @@ public partial class LandingState : State
 
     public override void OnAnimationTreeAnimationFinished(StringName animName)
     {
-        if (animName == LandingAnimation) {
-		 	NextState = GroundState;
-		}
+      if (animName == _landingAnimation) {
+		 	  NextState = _groundState;
+		  }
     }
 }

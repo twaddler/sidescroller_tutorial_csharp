@@ -3,7 +3,7 @@ using System;
 
 public partial class HealthChangedLabel : Label
 {
-	private Vector2 floatSpeed = new Vector2(0, -50);
+	private Vector2 _floatSpeed = new Vector2(0, -50);
 	private Timer _timer;
 	
 	// Called when the node enters the scene tree for the first time.
@@ -21,6 +21,6 @@ public partial class HealthChangedLabel : Label
     // Called every frame. 'delta' is the elapsed time since the previous frame.
     public override void _Process(double delta)
 	{
-		Position += floatSpeed * (float)delta;
+		Position += _floatSpeed * (float)delta;
 	}
 }

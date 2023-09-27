@@ -4,24 +4,25 @@ using System;
 public partial class HealthChangedManager : Control
 {
 	[Export]
-	private string labelPath = "res://UI/health_changed_label.tscn";
+	private string _labelPath = "res://UI/health_changed_label.tscn";
 	[Export]
-	private Color damageColor = Colors.Red;
-	private SignalBus sigBus;
-	private Label healthChangedLabel;
+	private Color _damageColor = Colors.Red;
+	
+	private SignalBus _sigBus;
+	private Label _healthChangedLabel;
 
     public override void _Ready()
     {
-		sigBus = GetNode<SignalBus>("/root/SignalBus");
-        sigBus.OnHealthChanged += OnHealthChanged;
+		_sigBus = GetNode<SignalBus>("/root/SignalBus");
+        _sigBus.OnHealthChanged += OnHealthChanged;
     }
 
     private void OnHealthChanged(Node node, int AmountChanged)
     {
-		healthChangedLabel = (Label)ResourceLoader.Load<PackedScene>(labelPath).Instantiate();
-		node.AddChild(healthChangedLabel);
-		healthChangedLabel.Text = AmountChanged.ToString();
-		healthChangedLabel.Modulate = damageColor;
+		_healthChangedLabel = (Label)ResourceLoader.Load<PackedScene>(_labelPath).Instantiate();
+		node.AddChild(_healthChangedLabel);
+		_healthChangedLabel.Text = AmountChanged.ToString();
+		_healthChangedLabel.Modulate = _damageColor;
     }
 
 }

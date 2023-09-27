@@ -9,9 +9,10 @@ public partial class State : Node
 
 	[Export]
 	public bool CanMove = true;
+	
 	public State NextState;
 	public AnimationNodeStateMachinePlayback Playback;
-	public AnimationTree animationTree;
+	public AnimationTree AnimationTree;
 
 	public CharacterBody2D Character;
 

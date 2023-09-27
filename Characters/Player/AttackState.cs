@@ -4,22 +4,23 @@ using System;
 public partial class AttackState : State
 {
 	[Export]
-	private string PrimaryAttackAnimation = "attack1";
+	private string _primaryAttackAnimation = "attack1";
 	[Export]
-	private string FollowUpAttackAnimation = "attack2";
-	private bool HasAttackedTwice = false;
-	private State ReturnState;
+	private string _followUpAttackAnimation = "attack2";
+	
+	private bool _hasAttackedTwice = false;
+	private State _returnState;
 	private Timer _timer;
 
     public override void _Ready()
     {
-		ReturnState = GetParent().GetNode("Ground") as State;
+		_returnState = GetParent().GetNode("Ground") as State;
 		_timer = GetNode<Timer>("FollowUpAttackTimer");
     }
 
     public override void StateInput(InputEvent inputEvent)
     {
-        if (inputEvent.IsActionPressed("attack") && !HasAttackedTwice) {
+        if (inputEvent.IsActionPressed("attack") && !_hasAttackedTwice) {
 			_timer.Start();
 		}
     }
@@ -27,20 +28,20 @@ public partial class AttackState : State
     public override void OnExit()
     {
 		Playback.Travel("Move");
-        HasAttackedTwice = false;
+        _hasAttackedTwice = false;
     }
 
     public override void OnAnimationTreeAnimationFinished(StringName animName)
     {
-		if (animName == PrimaryAttackAnimation) {
+		if (animName == _primaryAttackAnimation) {
 			if (_timer.IsStopped()) {
-				NextState = ReturnState;
+				NextState = _returnState;
 			} else {
-				Playback.Travel(FollowUpAttackAnimation);
+				Playback.Travel(_followUpAttackAnimation);
 			}
 		}
-		if (animName == FollowUpAttackAnimation) {
-			NextState = ReturnState;
+		if (animName == _followUpAttackAnimation) {
+			NextState = _returnState;
 		}
     }
 }

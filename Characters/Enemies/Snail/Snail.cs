@@ -4,9 +4,9 @@ using System;
 public partial class Snail : CharacterBody2D
 {
 	[Export]
-	private float Speed = 50.0f;
+	private float _speed = 50.0f;
 	[Export]
-	private Vector2 StartDirection = new Vector2(-1, 0);
+	private Vector2 _startDirection = new Vector2(-1, 0);
 
 	private Sprite2D _sprite;
 	private CharacterStateMachine _stateMachine;
@@ -32,14 +32,14 @@ public partial class Snail : CharacterBody2D
 
 		// Get the input direction and handle the movement/deceleration.
 		// As good practice, you should replace UI actions with custom gameplay actions.
-		Vector2 direction = StartDirection;
+		Vector2 direction = _startDirection;
 		if (direction != Vector2.Zero  && _stateMachine.CanMove())
 		{
-			velocity.X = direction.X * Speed;
+			velocity.X = direction.X * _speed;
 		}
 		else if (_stateMachine.CurrentState != _hitState)
 		{
-			velocity.X = Mathf.MoveToward(Velocity.X, 0, Speed);
+			velocity.X = Mathf.MoveToward(Velocity.X, 0, _speed);
 		}
 
 		Velocity = velocity;

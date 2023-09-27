@@ -5,20 +5,19 @@ public partial class GroundState : State
 {
 	[Export]
 	public float JumpVelocity = -150.0f;
+	[Export]
+	private string _jumpAnimation = "jump_start";
+	[Export]
+	private string _attackAnimation = "attack1";
 
-	private State AirState;
-	private State AttackState;
+	private State _airState;
+	private State _attackState;
 	private Timer _bufferTimer;
-
-	[Export]
-	private string JumpAnimation = "jump_start";
-	[Export]
-	private string AttackAnimation = "attack1";
 
     public override void _Ready()
     {
-		AirState = GetParent().GetNode("Air") as State;
-		AttackState = GetParent().GetNode("Attack") as State;
+		_airState = GetParent().GetNode("Air") as State;
+		_attackState = GetParent().GetNode("Attack") as State;
 		_bufferTimer = GetNode<Timer>("Timer");
     }
 
@@ -36,18 +35,18 @@ public partial class GroundState : State
 		Vector2 velocity = Character.Velocity;
 		velocity.Y = JumpVelocity;
 		Character.Velocity = velocity;
-		Playback.Travel(JumpAnimation);
-		NextState = AirState;
+		Playback.Travel(_jumpAnimation);
+		NextState = _airState;
 	}
 
 	private void Attack() {
-		Playback.Travel(AttackAnimation);
-		NextState = AttackState;
+		Playback.Travel(_attackAnimation);
+		NextState = _attackState;
 	}
 
 	public override void StateProcess(double delta) {
         if (!Character.IsOnFloor() && _bufferTimer.IsStopped()) {
-			NextState = AirState;
+			NextState = _airState;
 		}
 	}
 }

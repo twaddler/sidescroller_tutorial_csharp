@@ -6,9 +6,8 @@ public partial class Player : CharacterBody2D
 	[Export]
 	public float Speed = 200.0f;
 
-
 	[Export]
-	public float Gravity = 490.0f; //ProjectSettings.GetSetting("physics/2d/default_gravity").AsSingle();
+	public float Gravity = ProjectSettings.GetSetting("physics/2d/default_gravity").AsSingle();
 
 	private Sprite2D _sprite;
 	private CharacterStateMachine _stateMachine;

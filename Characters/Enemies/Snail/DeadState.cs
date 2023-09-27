@@ -4,11 +4,11 @@ using System;
 public partial class DeadState : State
 {
 	[Export]
-	private string DeadAnimationName = "dead";
+	private string _deadAnimationName = "dead";
 
 	public override void OnAnimationTreeAnimationFinished(StringName animName)
     {
-	    if (animName == DeadAnimationName) {
+	    if (animName == _deadAnimationName) {
 			GetParent().GetParent().QueueFree();
 		}
     }
